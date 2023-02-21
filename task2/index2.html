@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./main.css">
+    <title>Vue Task 2-2</title>
+</head>
+
+<body>
+
+    <div id="app" class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-column align-items-center" v-if="!dataIsSend">
+            <div class="scroll mt-3" @scroll="onScroll">
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+                <p>This text no one reads This text no one reads This text no one reads</p>
+            </div>
+            <div class="checks d-flex flex-column align-items-start mt-3" v-if="isScroll">
+                <div class="">
+                    <input type="checkbox" id="agree" v-model="agree">
+                    <label for="agree">I agree this text</label>
+                </div>
+                <div class="">
+                    <input type="checkbox" id="send" v-model="spam">
+                    <label for="send">Send me spam</label>
+                </div>
+                <div class="" v-if="spam">
+                    <input type="radio" id="email" value="email" v-model="radioValue">
+                    <label for="email">Send me spam on email</label>
+                </div>
+                <div class="" v-if="spam">
+                    <input type="radio" id="phone" value="phone" v-model="radioValue">
+                    <label for="phone">Send me spam on phone</label>
+                </div>
+            </div>
+            <div class="send_data" v-if="agree">
+                <button type="button" class="btn btn-primary" @click="sendData">Send Data</button>
+            </div>
+        </div>
+        <div class="table_data d-flex justify-content-center mt-3" v-if="dataIsSend">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Agree Text</td>
+                    <td>{{ isAgree() }}</td>
+                </tr>
+                <tr>
+                    <td>Get Spam</td>
+                    <td>{{ isSpam() }}</td>
+                </tr>
+                <tr v-if="spam">
+                    <td>Spam On</td>
+                    <td>{{ radioValue }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <script src="./vue/vue.js"></script>
+    <script src="./main2.js"></script>
+</body>
+
+</html>
