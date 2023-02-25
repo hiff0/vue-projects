@@ -9,15 +9,18 @@ Vue.directive('timer', {
 
         if (!isNaN(+options.arg)) {
             timeout = parseInt(options.arg);
+        } else {
+            timeout = 1000;
         }
 
         for (const name in options.modifiers) {
-            if (name === 'run') {
-                isRun = true;
-            }
             if (!isNaN(+name)) {
                 count = parseInt(name);
             }
+        }
+
+        if (options.modifiers.run) {
+            isRun = true;
         }
 
         const plusTimeout = timeout;
