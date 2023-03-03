@@ -1,0 +1,15 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+Vue.use(Vuex);
+
+export const store = new Vuex.Store({
+    state: {
+        cnt: 1
+    },
+    // mutations: {
+    //     increment(state) {
+    //         state.cnt += 1;
+    //     }
+    // }
+})
