@@ -46,7 +46,6 @@ const vm = new Vue({
             this.dataNotSendig = false;
         },
         input(value, index) {
-            console.log(1);
             const regexp = this.info[index].pattern;
             this.info[index].class = regexp.test(value) === true ? 'item-cool' : 'item-notcool';
         }
@@ -54,6 +53,7 @@ const vm = new Vue({
     computed: {
 
         getWidth() {
+            console.log(1);
             let done = 0;
             for (const item of this.info) {
                 done += item.class === 'item-cool' ? 1 : 0;

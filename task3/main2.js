@@ -2,11 +2,11 @@
 Vue.component('app-input', {
     props: ['item'],
     template: `
-    <div class="input">
-        <label class="fw-bold" :class="item.class">{{ item.name }}</label>
-        <br>
-        <input type="text" class="w-100" v-model="item.value" @input="checkPatter">
-    </div>`,
+        <div class="input">
+            <label class="fw-bold" :class="item.class">{{ item.name }}</label>
+            <br>
+            <input type="text" class="w-100" v-model="item.value" @input="checkPatter">
+        </div>`,
     methods: {
         checkPatter() {
             const regexp = this.item.pattern;

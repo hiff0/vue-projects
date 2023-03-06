@@ -1,96 +1,52 @@
 <template>
   <div id="app">
-    <div class="container">
-      <div class="d-flex justify-content-center mt-3">
-        <transition>
-          <div class="w-50 d-flex flex-column align-items-start justify-content-center" v-if="dataNotSendig">
-            <div class="progres_bar mt-3" :style="getWidth"></div>
-            <div class="w-100 d-flex flex-column">
-              <div class="row mt-3">
-                <div class="col">
-                  <app-input v-for="(item, index) in inputData" :key="index" :item="item">
-                  </app-input>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col">
-                <button type="button" class="btn btn-success" :class="buttonClass" @click="dataSend">Send
-                  Data</button>
-              </div>
-            </div>
-          </div>
-        </transition>
-        <div class="w-100 d-flex flex-column mt-3" v-if="!dataNotSendig">
-          <table class="table table-bordered">
-            <tr v-for="item of inputData">
-              <td>{{ item.name }}</td>
-              <td>{{ item.value }}</td>
-            </tr>
-          </table>
+    <header>
+      <div class="container">
+        <h2 class="mt-5">Site</h2>
+        <div v-if="!dataNotSendig">Hello, {{ name }}</div>
+        <hr>
+      </div>
+    </header>
+    <section>
+      <div class="container d-flex justify-content-end">
+        <div class="w-50 d-flex flex-column align-items-start justify-content-center" v-if="dataNotSendig">
+          <div class="progres_bar mt-3" :style="getWidth"></div>
+          <app-input v-for="(item, index) in inputData" :key="index" :item="item" :index="index">
+          </app-input>
+          <app-button :button-disabled="buttonDisabled"></app-button>
+        </div>
+        <div class="w-50 d-flex flex-column mt-3" v-else>
+          <app-table :input-data="inputData"></app-table>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script>
 import Input from './components/Input.vue';
+import Button from './components/Button.vue';
+import Table from './components/Table.vue';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    'app-input': Input
+    'app-input': Input,
+    'app-button': Button,
+    'app-table': Table
   },
   data() {
     return {
-      inputData: [
-        {
-          name: 'Name',
-          value: '',
-          pattern: /^[a-zA-Z]{2,30}$/,
-          class: ''
-        },
-        {
-          name: 'Phone',
-          value: '',
-          pattern: /^[0-9]{7,14}$/,
-          class: ''
-        },
-        {
-          name: 'Email',
-          value: '',
-          pattern: /.+/,
-          class: ''
-        },
-        {
-          name: 'Some Field 1',
-          value: '',
-          pattern: /.+/,
-          class: ''
-        },
-        {
-          name: 'Some Field 2',
-          value: '',
-          pattern: /.+/,
-          class: ''
-        },
-      ],
-      email: '',
-      firstName: '',
-      phone: '',
-      someField1: '',
-      someField2: '',
-      dataNotSendig: true,
-      buttonClass: 'disabled'
-    }
-  },
-  methods: {
-    dataSend() {
-      this.dataNotSendig = false;
+      buttonDisabled: true
     }
   },
   computed: {
+    ...mapGetters([
+      'inputData',
+      'dataNotSendig',
+      'name'
+    ]),
     getWidth() {
       let done = 0;
       for (const item of this.inputData) {
@@ -98,12 +54,36 @@ export default {
       }
 
       const progressWidth = (100 / this.inputData.length) * done;
-      this.buttonClass = progressWidth === 100 ? '' : 'disabled';
-
+      this.buttonDisabled = progressWidth !== 100;
+      console.log(this.buttonDisabled);
       return { width: progressWidth + '%' }
     }
   }
 }
 </script>
 
-<style></style>
+<style>
+label {
+  font-weight: bold;
+}
+
+.item-cool::after {
+  content: "\f087";
+  font-family: FontAwesome;
+  color: #3dd535;
+  margin-left: 5px;
+}
+
+.item-notcool::after {
+  content: "\f00d";
+  font-family: FontAwesome;
+  color: #bb4444;
+  margin-left: 5px;
+}
+
+.progres_bar {
+  height: 30px;
+  background-color: #523fb2;
+  border-radius: 5px;
+}
+</style>
