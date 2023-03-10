@@ -35,7 +35,11 @@ export default {
             addToCard: 'add',
             removeFromCard: 'remove'
         })
-    }
+    },
+    // created() {
+    //     console.log('created')
+    //     this.$store.dispatch('products/loadItems');
+    // }
 }
 </script>
 

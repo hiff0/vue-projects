@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 import ProductList from './components/ProductList';
 import Card from './components/Card';
 import NotFound from './components/NotFound';
-import Product from './components/Product'
+import Product from './components/Product';
+import Order from './components/Order';
 
 Vue.use(VueRouter);
 
@@ -17,7 +18,11 @@ const routes = [
     {
         name: 'products',
         path: '/products',
-        component: ProductList
+        component: ProductList,
+        // beforeEnter(from, to, next) {
+        //     console.log(1);
+        //     next();
+        // }
     },
     {
         path: '/products/:id',
@@ -26,6 +31,10 @@ const routes = [
     {
         path: '/card',
         component: Card
+    },
+    {
+        path: '/checkout',
+        component: Order
     },
     {
         path: '*',

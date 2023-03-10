@@ -19,12 +19,13 @@
                 </tbody>
             </table>
             <button class="btn btn-success" @click="onOrder">Order Now</button>
+            <button class="btn btn-warning" @click="clearCard">Clear card</button>
         </template>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     computed: {
@@ -42,6 +43,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions('card', {
+            clearCard: 'clear'
+        }),
         onOrder() {
             this.$router.push('/checkout')
         }

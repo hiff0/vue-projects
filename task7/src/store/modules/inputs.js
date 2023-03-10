@@ -1,9 +1,5 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
+export default {
+    namespaced: true,
     state: {
         inputData: [
             {
@@ -13,32 +9,20 @@ export const store = new Vuex.Store({
                 class: ''
             },
             {
-                name: 'Phone',
+                name: 'Card Number',
                 value: '',
                 pattern: /^[0-9]{7,14}$/,
                 class: ''
             },
             {
-                name: 'Email',
+                name: 'Phone',
                 value: '',
-                pattern: /.+/,
-                class: ''
-            },
-            {
-                name: 'Some Field 1',
-                value: '',
-                pattern: /.+/,
-                class: ''
-            },
-            {
-                name: 'Some Field 2',
-                value: '',
-                pattern: /.+/,
+                pattern: /^[0-9]{7,14}$/,
                 class: ''
             },
         ],
         dataNotSendig: true,
-        buttonText: 'Send Data'
+        buttonText: 'Send Data',
     },
     getters: {
         inputData(state) {
@@ -50,8 +34,18 @@ export const store = new Vuex.Store({
         buttonText(state) {
             return state.buttonText;
         },
-        name(state) {
-            return state.inputData[0].value
+        getOneItem: (state) => (index) => {
+            return state.inputData[index];
+        },
+        getWidth(state) {
+            let done = 0;
+            for (const item of state.inputData) {
+                done += item.class === 'item-cool' ? 1 : 0;
+            }
+
+            const progressWidth = (100 / state.inputData.length) * done;
+            // this.buttonDisabled = progressWidth !== 100;
+            return { width: progressWidth + '%' };
         }
     },
     mutations: {
@@ -60,7 +54,6 @@ export const store = new Vuex.Store({
         },
         setValue(state, payload) {
             state.inputData[payload.index].value = payload.value;
-            // state.inputData[payload.index].class = payload.class;
         },
         setClass(state, payload) {
             state.inputData[payload.index].class = payload.class;
@@ -76,7 +69,19 @@ export const store = new Vuex.Store({
             setTimeout(() => {
                 store.commit('dataSend');
             }, 1000)
+        },
+        onInput(store, payload) {
+            store.commit('setValue', {
+                index: payload.index,
+                value: payload.value,
+            })
+            const item = store.getters['getOneItem'](payload.index);
+            const regexp = item.pattern;
+            const itemClass = regexp.test(item.value) === true ? 'item-cool' : 'item-notcool';
+            store.commit('setClass', {
+                index: payload.index,
+                class: itemClass
+            })
         }
-    },
-    strict: true
-}) 
+    }
+}

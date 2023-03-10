@@ -23,6 +23,9 @@ export default {
             if (index !== -1) {
                 state.products.splice(index, 1);
             }
+        },
+        clear(state) {
+            state.products = [];
         }
     },
     actions: {
@@ -32,5 +35,8 @@ export default {
         remove(store, id_product) {
             store.commit('remove', id_product);
         },
+        clear(store) {
+            store.commit('clear');
+        }
     }
 }

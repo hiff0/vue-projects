@@ -1,3 +1,5 @@
+import Vue from "vue";
+
 export default {
     namespaced: true,
     state: {
@@ -22,10 +24,20 @@ export default {
         }
     },
     mutations: {
-
+        // loadItems(state, data) {
+        //     state.items = data;
+        // }
     },
     actions: {
-
+        // loadItems(store) {
+        //     console.log('actions')
+        //     Vue.http.get('products.php')
+        //         .then((response) => response)
+        //         .then((data) => {
+        //             console.log(data);
+        //             store.commit('loadItems', data);
+        //         })
+        // }
     }
 }
 
